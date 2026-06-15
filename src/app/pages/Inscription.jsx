@@ -44,7 +44,7 @@ const Inscription = () => {
 
             if (response.ok) {
                 alert("Inscription réussie ✔️ Vous pouvez maintenant vous connecter.");
-                  navigte('/');
+                  navigate('/connexion');
                 
             } else {
                 alert(result.message || "Erreur lors de l'inscription");
