@@ -41,7 +41,7 @@ const Connexion = () => {
                     localStorage.setItem("token", result.token);
                 }
                 alert(`Connexion réussie ${result.user.prenom} ${result.user.nom}` );
-                navigte('/accueil');
+                navigte('/');
                 
             } else {
                 alert(result.message || "Identifiants incorrects");
@@ -60,7 +60,7 @@ const Connexion = () => {
 
 
   return (
-      <div className="w-screen h-screen bg-neutral-400 flex items-center justify-center">
+      <div className="w-screen h-screen  flex items-center justify-center">
 
         <div className="w-full max-w-xl p-5 bg-white">
 

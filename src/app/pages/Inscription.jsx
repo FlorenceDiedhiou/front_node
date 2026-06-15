@@ -59,7 +59,7 @@ const Inscription = () => {
 
 
   return (
-      <div className="w-screen h-screen bg-neutral-400 flex items-center justify-center">
+      <div className="w-screen h-screen  flex items-center justify-center">
 
         <div className="w-full max-w-xl p-5 bg-white">
 
