@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState ,  } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 
 
 
@@ -10,12 +10,12 @@ const Inscription = () => {
   const [ password , setPassword ] = useState('');
   const [ prenom , setPrenom ] = useState('');
   const [ nom , setNom ] = useState('');
-  const navigte = useNavigate();
+  const navigate = useNavigate();
 
   
   // la logique
 
-  const Inscription = async () => {
+  const Register = async (e) => {
       e.preventDefault();
 
         if (!prenom || !nom || !email || !password ) {
@@ -65,9 +65,9 @@ const Inscription = () => {
 
             <h1 className="text-center font-bold text-xl">Inscription</h1>
 
-            <form onSubmit={Inscription}>
+            <form onSubmit={Register}>
                 <div className="flex flex-col gap-2">
-                    <label for="prenom">Prénom</label>
+                    <label >Prénom</label>
                     <input
                         className="border py-1 px-3 border-black"
                         type="text" placeholder="Prénom"
@@ -75,7 +75,7 @@ const Inscription = () => {
                         onChange={ (e) => setPrenom(e.target.value)}/>
                 </div>
                 <div className="flex flex-col gap-2 mt-2">
-                    <label for="nom">Nom</label>
+                    <label >Nom</label>
                     <input
                         className="border py-1 px-3 border-black"
                         type="text"  placeholder="Nom"
@@ -84,7 +84,7 @@ const Inscription = () => {
                       
                 </div>
                 <div className="flex flex-col gap-2 mt-2">
-                    <label for="email">Email</label>
+                    <label >Email</label>
                     <input
                         className="border py-1 px-3 border-black"
                         type="email"  placeholder="exemple@gmail.com"
@@ -93,7 +93,7 @@ const Inscription = () => {
                         
                 </div>
                 <div className="flex flex-col gap-2 mt-2">
-                    <label for="password">Mot de passe</label>
+                    <label >Mot de passe</label>
                     <input
                         className="border py-1 px-3 border-black"
                         type="password"  placeholder="Mot de passe"

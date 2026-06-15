@@ -8,7 +8,7 @@ const Connexion = () => {
 
   const [ email , setEmail ] = useState('');
   const [ password , setPassword ] = useState('');
-  const navigte = useNavigate();
+  const navigate = useNavigate();
 
   const Laconnexion = async (e)  => {
        e.preventDefault();
