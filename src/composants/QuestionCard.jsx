@@ -7,6 +7,7 @@ const QuestionCard = ({ question }) => {
       <div className="flex justify-between mt-4 text-sm text-gray-500">
         <span>{question.auteur}</span>
         <span>{question.heure}</span>
+        
       </div>
     </div>
   );

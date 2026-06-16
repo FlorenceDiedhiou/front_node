@@ -40,6 +40,9 @@ const Connexion = () => {
                 if (result.token) {
                     localStorage.setItem("token", result.token);
                 }
+                if (result.user) {
+                    localStorage.setItem("user", result.user);
+                }
                 alert(`Connexion réussie ${result.user.prenom} ${result.user.nom}` );
                 navigate('/');
                 
