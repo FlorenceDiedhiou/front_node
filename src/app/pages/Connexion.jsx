@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
+ const URL_FRONT = import.meta.env.VITE_URL_FRONT;
 
 const Connexion = () => {
   const [email, setEmail] = useState('')
@@ -21,8 +22,8 @@ const Connexion = () => {
     const toastId = toast.loading('Connexion en cours…')
 
     try {
-      const response = await fetch('https://backend-node3.onrender.com/api/auth/connexion', {
-    //   const response = await fetch('http://localhost:3000/api/auth/connexion', {
+      const response = await fetch(`${URL_FRONT}/api/auth/connexion`, {
+   
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
