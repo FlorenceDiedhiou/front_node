@@ -1,11 +1,133 @@
-import React from 'react'
+import { useState } from 'react';
+import { Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
+
+const API_URL = 'http://localhost:3000/api/questions';
+
+//  Si ta page de connexion stocke le token sous une autre clé que "token"
+// (ex: "accessToken"), change uniquement cette ligne :
+const TOKEN_KEY = 'token';
 
 const QuestionForm = () => {
-  return (
-    <div>
-      <h1>formulaire des question</h1>
-    </div>
-  )
-}
+  const [titre, setTitre] = useState('');
+  const [description, setDescription] = useState('');
+  const [status, setStatus] = useState('idle'); // idle | loading | success | error
+  const [errorMessage, setErrorMessage] = useState('');
 
-export default QuestionForm
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!titre.trim() || !description.trim()) {
+      setStatus('error');
+      setErrorMessage('Le titre et la description sont obligatoires.');
+      return;
+    }
+
+    const token = localStorage.getItem(TOKEN_KEY);
+    if (!token) {
+      setStatus('error');
+      setErrorMessage('Tu dois être connecté·e pour poser une question.');
+      return;
+    }
+
+    setStatus('loading');
+    setErrorMessage('');
+
+    try {
+      const response = await fetch(API_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ titre, description }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Une erreur est survenue.');
+      }
+
+      setStatus('success');
+      setTitre('');
+      setDescription('');
+    } catch (err) {
+      setStatus('error');
+      setErrorMessage(err.message || 'Impossible de publier la question. Réessaie.');
+    }
+  };
+
+  return (
+    <div className="min-h-screen w-full bg-gray-50 px-4 py-10">
+      <div className="mx-auto max-w-2xl">
+        <h1 className="mb-1 text-2xl font-bold text-gray-900">Poser une question</h1>
+        <p className="mb-6 text-sm text-gray-500">
+          Sois précis·e dans le titre, et détaille ton problème dans la description.
+        </p>
+
+        <form onSubmit={handleSubmit} className="space-y-5 rounded-2xl bg-white p-6 shadow-sm">
+          <div>
+            <label htmlFor="titre" className="mb-1 block text-sm font-semibold text-gray-700">
+              Titre
+            </label>
+            <input
+              id="titre"
+              type="text"
+              value={titre}
+              onChange={(e) => setTitre(e.target.value)}
+              placeholder="Ex : Comment éviter les re-renders inutiles avec useMemo ?"
+              className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              disabled={status === 'loading'}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="description" className="mb-1 block text-sm font-semibold text-gray-700">
+              Description
+            </label>
+            <textarea
+              id="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              rows={6}
+              placeholder="Décris ton contexte, ce que tu as essayé, et le comportement attendu..."
+              className="w-full resize-none rounded-xl border border-gray-200 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              disabled={status === 'loading'}
+            />
+          </div>
+
+          {status === 'error' && (
+            <div className="flex items-start gap-2 rounded-xl bg-red-50 p-3 text-sm text-red-700">
+              <AlertCircle size={18} className="mt-0.5 shrink-0" />
+              <span>{errorMessage}</span>
+            </div>
+          )}
+
+          {status === 'success' && (
+            <div className="flex items-start gap-2 rounded-xl bg-emerald-50 p-3 text-sm text-emerald-700">
+              <CheckCircle2 size={18} className="mt-0.5 shrink-0" />
+              <span>Ta question a été publiée avec succès !</span>
+            </div>
+          )}
+
+          <button
+            type="submit"
+            disabled={status === 'loading'}
+            className="flex w-full items-center justify-center gap-2 rounded-full bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            {status === 'loading' ? (
+              <>
+                <Loader2 size={16} className="animate-spin" />
+                Publication...
+              </>
+            ) : (
+              'Publier la question'
+            )}
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default QuestionForm;

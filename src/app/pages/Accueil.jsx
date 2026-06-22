@@ -1,5 +1,4 @@
-import React from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import Questions from './../../composants/Questions'
 
 const Accueil = () => {
@@ -19,7 +18,7 @@ const Accueil = () => {
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
           <div>
             <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">
-              Bienvenue sur <span className="text-yellow-300">DevForum</span> 👋
+              Bienvenue sur <span className="text-yellow-300">DevForum</span> 
             </h1>
             <p className="text-indigo-100 text-sm sm:text-base max-w-lg">
               Posez vos questions, partagez vos connaissances et progressez avec la communauté des développeurs.

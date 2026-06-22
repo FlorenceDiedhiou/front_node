@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import toast from 'react-hot-toast'
 
@@ -7,11 +7,13 @@ const Navbar = () => {
   const token = localStorage.getItem('token')
   const [menuOpen, setMenuOpen] = useState(false)
 
-  const Deconnexion = () => {
+  const closeMenu = () => setMenuOpen(false)
+
+  const handleLogout = () => {
     localStorage.removeItem('token')
-    toast.success('Déconnexion réussie 👋')
+    toast.success('Déconnexion réussie')
+    closeMenu()
     navigate('/')
-    setMenuOpen(false)
   }
 
   const linkClass = ({ isActive }) =>
@@ -19,17 +21,18 @@ const Navbar = () => {
       isActive ? 'text-indigo-600' : 'text-slate-600 hover:text-indigo-600'
     }`
 
+  const mobileLinkClass = ({ isActive }) =>
+    `flex items-center px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
+      isActive
+        ? 'text-indigo-700 bg-indigo-50'
+        : 'text-slate-600 hover:text-indigo-600 hover:bg-indigo-50'
+    }`
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md shadow-sm border-b border-slate-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-
-          {/* ── Logo ── */}
-          <NavLink
-            to="/"
-            onClick={() => setMenuOpen(false)}
-            className="flex items-center gap-2 group"
-          >
+          <NavLink to="/" onClick={closeMenu} className="flex items-center gap-2 group">
             <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-md shadow-indigo-200 group-hover:shadow-indigo-300 transition-shadow duration-300">
               <span className="text-white font-bold text-sm">D</span>
             </div>
@@ -38,24 +41,23 @@ const Navbar = () => {
             </span>
           </NavLink>
 
-          {/* ── Liens desktop ── */}
           <div className="hidden md:flex items-center gap-6">
             <NavLink to="/" end className={linkClass}>Accueil</NavLink>
             <NavLink to="/profil" className={linkClass}>Profil</NavLink>
+            <NavLink to="/ajouter_question" className={linkClass}>Questions</NavLink>
           </div>
 
-          {/* ── Boutons desktop ── */}
           <div className="hidden md:flex items-center gap-3">
             {token ? (
               <button
-                onClick={Deconnexion}
+                type="button"
+                onClick={handleLogout}
                 className="flex items-center gap-2 bg-red-50 hover:bg-red-100 border border-red-200 text-red-600 hover:text-red-700 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                    d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                 </svg>
-                Déconnecter
+                Se déconnecter
               </button>
             ) : (
               <>
@@ -75,11 +77,12 @@ const Navbar = () => {
             )}
           </div>
 
-          {/* ── Hamburger mobile ── */}
           <button
-            onClick={() => setMenuOpen(!menuOpen)}
+            type="button"
+            onClick={() => setMenuOpen((open) => !open)}
             className="md:hidden p-2 rounded-xl text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 border border-slate-200 transition-all duration-200"
-            aria-label="Toggle menu"
+            aria-label="Ouvrir ou fermer le menu"
+            aria-expanded={menuOpen}
           >
             {menuOpen ? (
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -94,27 +97,23 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* ── Menu mobile déroulant ── */}
       {menuOpen && (
         <div className="md:hidden bg-white border-t border-slate-100 px-4 pb-4 pt-2 space-y-1 animate-slide-down">
-          <NavLink
-            to="/" end
-            onClick={() => setMenuOpen(false)}
-            className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-slate-600 hover:text-indigo-600 hover:bg-indigo-50 text-sm font-medium transition-all"
-          >
-            🏠 Accueil
+          <NavLink to="/" end onClick={closeMenu} className={mobileLinkClass}>
+            Accueil
           </NavLink>
-          <NavLink
-            to="/profil"
-            onClick={() => setMenuOpen(false)}
-            className="flex items-center gap-2 px-3 py-2.5 rounded-xl text-slate-600 hover:text-indigo-600 hover:bg-indigo-50 text-sm font-medium transition-all"
-          >
-            👤 Profil
+          <NavLink to="/profil" onClick={closeMenu} className={mobileLinkClass}>
+            Profil
           </NavLink>
+          <NavLink to="/ajouter_question" onClick={closeMenu} className={mobileLinkClass}>
+            Poser une question
+          </NavLink>
+
           <div className="border-t border-slate-100 pt-2 mt-2 space-y-2">
             {token ? (
               <button
-                onClick={Deconnexion}
+                type="button"
+                onClick={handleLogout}
                 className="w-full flex justify-center items-center gap-2 bg-red-50 border border-red-200 text-red-600 px-4 py-2.5 rounded-xl text-sm font-medium transition-all"
               >
                 Se déconnecter
@@ -123,14 +122,14 @@ const Navbar = () => {
               <>
                 <NavLink
                   to="/connexion"
-                  onClick={() => setMenuOpen(false)}
+                  onClick={closeMenu}
                   className="block w-full text-center px-4 py-2.5 rounded-xl text-sm font-medium text-slate-600 border border-slate-200 bg-white transition-all"
                 >
                   Connexion
                 </NavLink>
                 <NavLink
                   to="/inscription"
-                  onClick={() => setMenuOpen(false)}
+                  onClick={closeMenu}
                   className="block w-full text-center px-4 py-2.5 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-indigo-500 to-violet-600 shadow-md shadow-indigo-100 transition-all"
                 >
                   S'inscrire

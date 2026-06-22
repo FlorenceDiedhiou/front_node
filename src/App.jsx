@@ -1,4 +1,3 @@
-import React from 'react'
 import Connexion from './app/pages/Connexion';
 import Inscription from './app/pages/Inscription';
 import UserLayout from './app/layout/UserLayout';
@@ -28,7 +27,7 @@ const App = () => {
                 //  route de creer question
                  {path:'/ajouter_question' , element:<QuestionForm/>},
                 //  route de detail message
-               {path:'/detail:id' , element:<Detail/>},
+               {path:'/detail/:id' , element:<Detail/>},
               // {path:'/messages' , element:<Message/>},
 
         ]
