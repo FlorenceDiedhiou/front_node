@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import QuestionCard from './QuestionCard'
 
-const API_URL = 'http://localhost:3000/api/questions'
+const API_URL = import.meta.env.VITE_API_URL
 
 const Questions = () => {
   const [questions, setQuestions] = useState([])
@@ -13,7 +13,7 @@ const Questions = () => {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const res = await fetch(API_URL)
+        const res = await fetch(`${API_URL}/api/questions`)
         const data = await res.json()
         if (!res.ok) throw new Error(data.message || 'Erreur lors du chargement.')
         setQuestions(data.questions || [])

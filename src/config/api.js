@@ -1,8 +1,4 @@
-export const API_URL = (
-  import.meta.env.VITE_API_URL ||
-  import.meta.env.VITE_URL_FRONT ||
-  'http://127.0.0.1:3000'
-).replace(/\/$/, '')
+export const API_URL =  import.meta.env.VITE_API_URL 
 
 export const fetchApi = async (path, options = {}) => {
   const controller = new AbortController()

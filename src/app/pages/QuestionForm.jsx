@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
 
-const API_URL = 'http://localhost:3000/api/questions';
+const API_URL = import.meta.env.VITE_API_URL;
 
 //  Si ta page de connexion stocke le token sous une autre clé que "token"
 // (ex: "accessToken"), change uniquement cette ligne :
@@ -33,7 +33,7 @@ const QuestionForm = () => {
     setErrorMessage('');
 
     try {
-      const response = await fetch(API_URL, {
+      const response = await fetch(`${API_URL}/api/questions`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
