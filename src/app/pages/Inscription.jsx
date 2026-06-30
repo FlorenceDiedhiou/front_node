@@ -66,7 +66,7 @@ const Inscription = () => {
               </svg>
             </div>
             <h1 className="text-2xl font-bold text-slate-800">Créer un compte</h1>
-            <p className="text-slate-500 text-sm mt-1">Rejoignez la communauté DevForum</p>
+            <p className="text-slate-500 text-sm mt-1">Rejoignez la communauté DevM</p>
           </div>
 
           <form onSubmit={handleRegister} className="space-y-4">

@@ -34,10 +34,10 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           <NavLink to="/" onClick={closeMenu} className="flex items-center gap-2 group">
             <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-md shadow-indigo-200 group-hover:shadow-indigo-300 transition-shadow duration-300">
-              <span className="text-white font-bold text-sm">D</span>
+              <span className="text-white font-bold text-sm">DM</span>
             </div>
             <span className="font-bold text-slate-800 text-lg tracking-tight">
-              Dev<span className="text-indigo-500">Forum</span>
+              Dev<span className="text-indigo-500">M</span>
             </span>
           </NavLink>
 

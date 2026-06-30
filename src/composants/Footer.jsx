@@ -43,10 +43,10 @@ const Footer = () => {
           <div className="space-y-4 lg:col-span-2">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-md shadow-indigo-200">
-                <span className="text-white font-bold text-sm">D</span>
+                <span className="text-white font-bold text-sm">DM</span>
               </div>
               <span className="font-bold text-slate-800 text-lg">
-                Dev<span className="text-indigo-500">Forum</span>
+                Dev<span className="text-indigo-500">M</span>
               </span>
             </div>
             <p className="text-slate-500 text-sm leading-relaxed max-w-md">
@@ -92,7 +92,7 @@ const Footer = () => {
 
         <div className="border-t border-slate-200 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-slate-400 text-xs">
-              <span className="text-indigo-500 font-semibold">DevForum</span>.
+              <span className="text-indigo-500 font-semibold">DevM</span>.
             Tous droits réservés.
           </p>
           <p className="text-slate-400 text-xs">
