@@ -10,6 +10,7 @@ const TOKEN_KEY = 'token';
 const QuestionForm = () => {
   const [titre, setTitre] = useState('');
   const [description, setDescription] = useState('');
+  const [tags, setTags] = useState('');
   const [status, setStatus] = useState('idle'); // idle | loading | success | error
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -39,7 +40,7 @@ const QuestionForm = () => {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ titre, description }),
+        body: JSON.stringify({ titre, description, tags: tags.split(',').map((tag) => tag.trim()).filter(Boolean) }),
       });
 
       const data = await response.json();
@@ -51,6 +52,7 @@ const QuestionForm = () => {
       setStatus('success');
       setTitre('');
       setDescription('');
+      setTags('');
     } catch (err) {
       setStatus('error');
       setErrorMessage(err.message || 'Impossible de publier la question. Réessaie.');
@@ -92,6 +94,21 @@ const QuestionForm = () => {
               rows={6}
               placeholder="Décris ton contexte, ce que tu as essayé, et le comportement attendu..."
               className="w-full resize-none rounded-xl border border-gray-200 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+              disabled={status === 'loading'}
+            />
+          </div>
+
+          <div>
+            <label htmlFor="tags" className="mb-1 block text-sm font-semibold text-gray-700">
+              Tags
+            </label>
+            <input
+              id="tags"
+              type="text"
+              value={tags}
+              onChange={(e) => setTags(e.target.value)}
+              placeholder="Ex : react, javascript, useMemo"
+              className="w-full rounded-xl border border-gray-200 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
               disabled={status === 'loading'}
             />
           </div>
