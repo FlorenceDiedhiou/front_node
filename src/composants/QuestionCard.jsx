@@ -48,13 +48,13 @@ const QuestionCard = ({ question }) => {
       <p className="text-sm text-slate-500 leading-relaxed line-clamp-2 mb-4">
         {question.description}
       </p>
-      <p className="text-xs text-slate-500 leading-relaxed line-clamp-2 mb-4">
-        {question.tags?.map((tag) => (
-          <span key={tag} className="inline-block bg-slate-100 text-slate-700 px-2 py-0.5 rounded-full mr-1 mb-1 text-xs">
-            {tag}
-          </span>
-        ))}
-      </p>
+      <div className="flex flex-wrap gap-1 mb-4">
+  {question.tags?.map((tag) => (
+    <span key={tag} className="inline-block bg-slate-100 text-slate-700 px-2 py-0.5 rounded-full text-xs">
+      {tag}
+    </span>
+  ))}
+</div>
 
       <div className="flex items-center justify-between gap-3 pt-3 border-t border-slate-100">
         <div className="flex items-center gap-2 min-w-0">

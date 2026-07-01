@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Loader2, CheckCircle2, AlertCircle } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const API_URL = import.meta.env.VITE_API_URL;
 
@@ -13,6 +14,7 @@ const QuestionForm = () => {
   const [tags, setTags] = useState('');
   const [status, setStatus] = useState('idle'); // idle | loading | success | error
   const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -48,11 +50,12 @@ const QuestionForm = () => {
       if (!response.ok) {
         throw new Error(data.message || 'Une erreur est survenue.');
       }
-
+      
       setStatus('success');
       setTitre('');
       setDescription('');
       setTags('');
+      navigate('/');
     } catch (err) {
       setStatus('error');
       setErrorMessage(err.message || 'Impossible de publier la question. Réessaie.');

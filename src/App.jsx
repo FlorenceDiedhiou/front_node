@@ -27,7 +27,7 @@ const App = () => {
                 //  route de creer question
                  {path:'/ajouter_question' , element:<QuestionForm/>},
                 //  route de detail message
-               {path:'/detail/:id' , element:<Detail/>},
+              { path: '/questions/:id', element: <Detail /> }
               // {path:'/messages' , element:<Message/>},
 
         ]
